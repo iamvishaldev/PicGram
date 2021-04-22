@@ -2,6 +2,7 @@
 import firebase from "firebase/app";
 import "firebase/storage"; // to store our images
 import "firebase/firestore"; // it is use for database
+import "firebase/auth";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBn9W6C4VxFH2YeQiuHKLi_vqt5YJtFSpA",
@@ -15,8 +16,16 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+export const auth = firebase.auth();
+
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const signInWithGoogle = () => {
+  auth.signInWithPopup(googleProvider);
+};
+
 const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 export { projectStorage, projectFirestore, timestamp };
+export default firebase;
